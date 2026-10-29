@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conecta Claude a tu Instagram con ManyChat: el tutorial y el prompt exacto</title>
+<meta name="description" content="Tutorial gratis en español para que Claude responda tus mensajes directos y comentarios de Instagram con ManyChat y agende llamadas. Incluye el prompt.">
+<meta property="og:title" content="Claude responde tus mensajes de Instagram y te agenda llamadas">
+<meta property="og:description" content="El tutorial completo con ManyChat y el prompt exacto que uso. Gratis, en español.">
+<meta property="og:image" content="https://diegodoc1111.github.io/bot-instagram/img/og.jpg">
+<meta property="og:url" content="https://diegodoc1111.github.io/bot-instagram/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fondo: #EEE8DB; --tinta: #1F1D1A; --texto: #3A3733; --suave: #6E6A63;
+    --terra: #D9774F; --terra-osc: #B85C37; --rosa: #F6DED5; --carta: #FBF8F2; --linea: #E0D8C8; --term: #1E1C1A;
+    --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 17px/1.6 var(--sans); }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 22px 64px; }
+  .cabeza { display: flex; align-items: flex-end; gap: 18px; margin: 8px 0 18px; }
+  .cabeza img { width: 92px; height: auto; image-rendering: pixelated; flex: none; }
+  .etiqueta { display: inline-block; font: 600 13px/1 var(--mono); letter-spacing: .08em; color: var(--terra-osc); background: var(--rosa); padding: 8px 12px; border-radius: 999px; }
+  h1 { font: 400 clamp(40px, 8.5vw, 62px)/1.02 var(--serif); color: var(--tinta); margin: 14px 0 14px; letter-spacing: -.01em; }
+  h1 em, h2 em { color: var(--terra); }
+  .bajada { font-size: 19px; margin: 0 0 22px; } .bajada strong { color: var(--tinta); }
+  .foto { display: block; width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--linea); box-shadow: 0 10px 30px rgba(30,20,15,.18); margin: 0 0 10px; }
+  .pie { font-size: 14px; color: var(--suave); margin: 0 0 24px; }
+  .avisos { display: grid; gap: 10px; margin: 0 0 34px; padding: 0; list-style: none; }
+  .avisos li { background: var(--carta); border: 1px solid var(--linea); border-radius: 14px; padding: 12px 16px; font-size: 15.5px; }
+  .avisos li b { color: var(--tinta); }
+  .paso { position: relative; margin: 0 0 30px; padding: 22px 20px 20px; background: var(--carta); border: 1px solid var(--linea); border-radius: 20px; }
+  .num { position: absolute; top: -16px; left: 18px; width: 36px; height: 36px; border-radius: 50%; background: var(--terra); color: #fff; font: 700 17px/36px var(--sans); text-align: center; box-shadow: 0 2px 0 var(--terra-osc); }
+  h2 { font: 400 30px/1.15 var(--serif); color: var(--tinta); margin: 8px 0 10px; }
+  h3 { font: 700 16px/1.3 var(--sans); color: var(--tinta); margin: 18px 0 6px; }
+  .paso p { margin: 0 0 12px; } .paso p:last-child { margin-bottom: 0; }
+  .paso ol, .paso ul { margin: 0 0 12px; padding-left: 22px; } .paso li { margin: 5px 0; }
+  a { color: var(--terra-osc); text-underline-offset: 3px; }
+  .boton { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 14px 0 12px; padding: 16px 20px; border-radius: 999px; background: var(--terra); color: #fff; text-decoration: none; font: 700 18px/1.2 var(--sans); box-shadow: 0 3px 0 var(--terra-osc); border: 0; width: 100%; cursor: pointer; }
+  .boton:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--terra-osc); }
+  .nota { font-size: 14.5px; color: var(--suave); }
+  .term { background: var(--term); border-radius: 14px; overflow: hidden; margin: 12px 0 0; box-shadow: 0 6px 20px rgba(30,20,15,.22); }
+  .term .barra { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: #2A2724; font: 12.5px var(--mono); color: #9E978C; }
+  .term .barra i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; } .term .barra span { margin-left: 8px; }
+  .term pre { margin: 0; padding: 14px 16px 16px; overflow-x: auto; font: 14px/1.7 var(--mono); color: #E8E2D6; white-space: pre-wrap; word-break: break-word; }
+  .term.largo pre { max-height: 420px; overflow-y: auto; }
+  .term .p { color: var(--terra); }
+  .term .ag { color: var(--terra); font-weight: 600; }
+  .sis { display: inline-block; font: 600 12px/1 var(--mono); letter-spacing: .06em; color: var(--terra-osc); background: var(--rosa); padding: 6px 10px; border-radius: 999px; margin: 14px 0 0; }
+  .copiar { margin-top: 10px; display: inline-flex; gap: 8px; align-items: center; cursor: pointer; border: 1px solid var(--linea); background: #fff; color: var(--tinta); border-radius: 999px; padding: 8px 14px; font: 600 14px var(--sans); }
+  .acciones { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 4px; }
+  .acciones a { font: 600 14px var(--sans); }
+  .rondas { display: grid; gap: 10px; margin: 12px 0 0; }
+  .ronda { display: flex; gap: 14px; background: #fff; border: 1px solid var(--linea); border-radius: 14px; padding: 12px 14px; }
+  .ronda .n { flex: none; font-size: 26px; line-height: 1.1; width: 32px; }
+  .ronda b { color: var(--tinta); }
+  .seccion { margin: 44px 0 0; } .seccion h2 { font-size: 32px; }
+  details { background: var(--carta); border: 1px solid var(--linea); border-radius: 14px; padding: 14px 16px; margin: 10px 0; }
+  summary { cursor: pointer; font-weight: 700; color: var(--tinta); } details p { margin: 10px 0 0; }
+  code { font: 14px var(--mono); background: #fff; border: 1px solid var(--linea); border-radius: 6px; padding: 1px 6px; }
+  .loop { display: block; background: var(--rosa); border: 1px solid #EBC3B3; border-left: 6px solid var(--terra); border-radius: 14px;
+          padding: 14px 16px; margin: 0 0 30px; font-size: 16px; color: var(--tinta); text-decoration: none; }
+  .loop b { color: var(--terra-osc); } .loop span { display: block; margin-top: 6px; font-weight: 700; color: var(--terra-osc); }
+  .imperio { margin: 48px 0 0; padding: 26px 22px 24px; border-radius: 22px; background: var(--tinta); color: #E8E2D6; }
+  .imperio h2 { color: #fff; font-size: 34px; margin-top: 0; } .imperio h2 em { color: var(--terra); }
+  .imperio p { margin: 0 0 14px; } .imperio b { color: #fff; }
+  .imperio ul { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 8px; }
+  .imperio li { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 10px 14px; }
+  .imperio .cifra { font: 400 26px/1.25 var(--serif); color: #fff; margin: 6px 0 16px; }
+  .imperio .cifra em { color: var(--terra); }
+  .imperio .boton { margin-bottom: 8px; } .imperio .nota { color: #B9B2A6; }
+  footer { margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--linea); font-size: 15px; color: var(--suave); }
+  footer a { color: var(--tinta); font-weight: 700; text-decoration: none; } footer em { font-family: var(--serif); font-size: 19px; color: var(--terra); }
+
+  .paso .foto { margin: 14px 0 6px; }
+  .num.osc { background: var(--tinta); box-shadow: 0 2px 0 #000; }
+  .mania { display: block; font: 600 12.5px/1.2 var(--mono); letter-spacing: .06em; color: var(--suave); text-transform: uppercase; margin: 6px 0 0; }
+  .paso h2 + .mania { margin-top: -4px; }
+  .ronda code { font-size: 13px; }
+  ol.simple { margin: 0 0 12px; padding-left: 22px; } ol.simple li { margin: 6px 0; }
+  .once { gap: 6px; } .once .ronda { padding: 8px 12px; gap: 10px; font-size: 15px; line-height: 1.45; }
+  .once .ronda .n { font-size: 17px; width: 22px; line-height: 1.5; color: var(--terra-osc); font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="cabeza">
+    <img src="img/mascota-regalo.png" alt="">
+    <span class="etiqueta">GRATIS · EN ESPAÑOL</span>
+  </div>
+
+  <h1>Claude responde <em>tus mensajes de Instagram</em> y te agenda llamadas</h1>
+  <p class="bajada">El tutorial completo para conectar <strong>Claude</strong> a tu Instagram con <strong>ManyChat</strong>: contesta tus mensajes directos y comentarios a cualquier hora y lleva cada conversación a una llamada. Con el prompt exacto que uso y sin programar.</p>
+
+  <img class="foto" src="img/hero.jpg" alt="Claude respondiendo mensajes de Instagram y agendando llamadas">
+  <p class="pie">Así responden mis agentes mientras yo estoy en otra cosa.</p>
+
+  <a class="loop" href="#imperio">🚀 <b>Los agentes de IA con los que hago cosas como esta les están sumando entre 5.000 y 10.000 dólares al mes a los clientes con los que trabajo.</b> Están dentro de Imperio, para multiplicar las ventas de los negocios.<span>Al final te cuento cómo funciona ↓</span></a>
+
+  <ul class="avisos">
+    <li>💻 <b>Se monta desde el computador</b> en manychat.com. Toma unos 20 minutos.</li>
+    <li>💳 <b>Necesitas el plan Pro de ManyChat</b> (39 dólares al mes, o 29 pagando el año, con 14 días gratis) y saldo en tu cuenta de Claude para desarrolladores: pagas solo lo que uses.</li>
+    <li>📱 <b>Tu Instagram debe ser cuenta profesional</b> (de empresa o de creador).</li>
+  </ul>
+
+  <section class="paso">
+    <div class="num">1</div>
+    <h2>Conecta tu Instagram a <em>ManyChat</em></h2>
+    <p>Crea tu cuenta en ManyChat con tu Instagram y activa el plan <b>Pro</b> (los 14 días de prueba sirven). La conexión con Claude no está en los planes más baratos.</p>
+    <a class="boton" href="https://manychat.com" target="_blank" rel="noopener">Ir a ManyChat →</a>
+  </section>
+
+  <section class="paso">
+    <div class="num">2</div>
+    <h2>Saca tu <em>llave de Claude</em></h2>
+    <p>Entra a la Plataforma de Claude con tu cuenta, ve a <b>API Keys</b> y dale <b>Create Key</b>. Cópiala de una vez: después no la vuelves a ver. En <b>Billing</b> carga un poco de saldo.</p>
+    <a class="boton" href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">Crear mi llave →</a>
+    <p class="nota">La llave es como la clave de tu tarjeta: no la mandes por chat ni la publiques.</p>
+  </section>
+
+  <section class="paso">
+    <div class="num">3</div>
+    <h2>Conecta <em>Claude</em> en ManyChat</h2>
+    <ol class="simple"><li>En ManyChat ve a <b>Configuración → Integraciones</b> (Settings → Integrations), busca <b>Claude</b>, pega tu llave y dale <b>Connect Claude Account</b>.</li><li>Luego ve a <b>Configuración → Campos</b> (Fields) y crea un campo de usuario tipo <b>Texto</b> llamado <code>respuesta_claude</code>. Ahí se guarda lo que Claude contesta.</li></ol>
+    <img class="foto" src="img/integraciones.jpg" alt="Integraciones de ManyChat con Claude">
+  </section>
+
+  <section class="paso">
+    <div class="num">4</div>
+    <h2>Arma el <em>flujo</em></h2>
+    <ol class="simple"><li>En <b>Automatización</b> crea una automatización nueva.</li><li>Agrega un bloque de <b>Acción</b> y elige <b>Claude</b>. Escoge el modelo, pega el prompt del paso 5, en <b>Last Text Input</b> pon el último mensaje del contacto y guarda la respuesta en <code>respuesta_claude</code>.</li><li>Después agrega un <b>mensaje de texto</b> con el campo <code>{{respuesta_claude}}</code> (lo insertas con el botón de campos del editor).</li><li>Debajo de ese mensaje pon una <b>Recolección de datos</b> (Data Collection) de respuesta libre y conéctala de vuelta a la acción de Claude. Así la conversación sigue hasta agendar.</li></ol>
+    <img class="foto" src="img/flujo.jpg" alt="Flujo de ManyChat con la acción de Claude">
+    <p class="nota">Son los mismos pasos de la <a href="https://help.manychat.com/hc/en-us/articles/19689792833180-Claude-integration" target="_blank" rel="noopener">guía oficial de ManyChat</a>.</p>
+  </section>
+
+  <section class="paso">
+    <div class="num">5</div>
+    <h2>Pega <em>el prompt</em></h2>
+    <p>Este es el prompt que uso, en plantilla. Cambia lo que está entre corchetes por lo tuyo.</p>
+    <div class="term largo"><div class="barra"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span>prompt · agente de Instagram</span></div><pre id="prompt">Eres el asistente de [TU NOMBRE], de [TU MARCA]. Respondes los mensajes directos y los comentarios de Instagram como una persona más del equipo.
+
+Cómo hablas: de tú, directo y cercano. Tono natural, nada de robótico. Nada de &quot;¿En qué puedo ayudarte hoy?&quot;. Sin listas.
+
+Negocio: [QUÉ HACES, en una línea].
+Oferta: [QUÉ VENDES y para quién].
+Objetivo de cada respuesta: agendar una llamada de [15] minutos.
+
+Reglas:
+1. Responde corto: máximo 2 líneas.
+2. Haz una sola pregunta a la vez para entender qué necesita la persona: su negocio y lo que quiere lograr.
+3. Cuando sepas qué necesita, invítala a la llamada y pásale este link para agendar: [TU LINK DE AGENDA].
+4. Si pregunta el precio, dile que depende de su caso y que en la llamada se lo explicas exacto.
+5. No inventes datos, precios ni promesas. Si no sabes algo, dile que [TU NOMBRE] se lo confirma en la llamada.
+6. Si la persona está molesta, pide hablar con un humano o toca un tema delicado, responde: &quot;Te paso con [TU NOMBRE], te escribe en un rato&quot;.
+7. Siempre lleva la conversación a la llamada.</pre></div>
+    <button class="boton" type="button" data-copiar-de="prompt">📋 Copiar el prompt</button>
+    <div class="acciones"><a href="prompt.txt" download="prompt-agente-instagram.txt">⬇ Descargarlo como archivo de texto</a></div>
+    <p class="nota" style="margin-top:12px">¿No quieres llenarlo a mano? Pégalo en <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> con una descripción de tu negocio y dile: “llénalo con mis datos”. Así se ve el mío:</p>
+    <img class="foto" src="img/prompt.jpg" alt="El prompt del agente de Diego">
+  </section>
+
+  <section class="paso">
+    <div class="num">6</div>
+    <h2>Conéctalo a tus <em>mensajes y comentarios</em></h2>
+    <p>En la automatización, toca <b>Disparador</b> (Trigger) y agrega <b>“el usuario te envía un mensaje”</b> para los mensajes directos y <b>“el usuario comenta tu publicación o reel”</b> para los comentarios. Si quieres que conteste cualquier mensaje, úsala también como <b>Respuesta predeterminada</b> (Default Reply).</p>
+    <img class="foto" src="img/disparadores.jpg" alt="Disparadores de Instagram: mensajes directos y comentarios">
+    <p>Dale <b>Set Live</b> y escríbete desde otra cuenta para probarlo. Revisa las primeras conversaciones en la bandeja y ajusta el prompt si algo no te gusta.</p>
+  </section>
+
+  <section class="seccion">
+    <h2>Preguntas <em>frecuentes</em></h2>
+    <details>
+      <summary>¿Cuánto me cuesta?</summary>
+      <p>ManyChat Pro cuesta 39 dólares al mes (29 pagando el año) y trae 14 días gratis. Claude se paga por uso: una respuesta corta cuesta menos de un centavo de dólar. Tu gasto lo ves en la Plataforma de Claude, en Usage.</p>
+    </details>
+    <details>
+      <summary>¿Qué modelo elijo?</summary>
+      <p>Para responder al instante y gastar menos, el más rápido de la lista (Haiku, si aparece). Si tus clientes hacen preguntas difíciles, uno más grande.</p>
+    </details>
+    <details>
+      <summary>¿Se acuerda de la conversación?</summary>
+      <p>Cada respuesta ve el último mensaje. Para que tenga más contexto, guarda datos como el nombre o el negocio en campos y agrégalos al prompt con el botón de campos.</p>
+    </details>
+    <details>
+      <summary>¿Sirve para WhatsApp?</summary>
+      <p>Sí. El plan Pro incluye WhatsApp y el flujo es el mismo: solo cambias el disparador.</p>
+    </details>
+  </section>
+
+  <section class="imperio" id="imperio">
+    <h2>Deja de hacerlo todo <em>a mano</em></h2>
+    <p class="cifra">Haz en <em>3 días</em> el trabajo de todo un mes.</p>
+    <p>Ten un equipo de marketing de 4 personas trabajando para ti por unos <b>$25 al mes</b>: <b>los agentes Imperio</b>. Te hacen:</p>
+    <ul>
+      <li>✍️ El contenido y los carruseles.</li>
+      <li>📣 Los anuncios y los VSL.</li>
+      <li>🖥️ Las páginas web.</li>
+      <li>📊 Las campañas en Meta.</li>
+      <li>💬 Y hasta responden tus mensajes.</li>
+    </ul>
+    <p><b>Sin saber de tecnología: solo copias, pegas y facturas.</b></p>
+    <p>Son los mismos agentes que hoy les suman <b>entre $5.000 y $10.000 dólares extra al mes</b> a los negocios con los que trabajo, para multiplicar sus ventas.</p>
+    <a class="boton" href="https://ig.me/m/soydiegoosorio" target="_blank" rel="noopener">Escríbeme “IMPERIO” por Instagram →</a>
+    <p class="nota">Te cuento cómo funciona y si encaja con tu negocio.</p>
+  </section>
+
+  <footer>
+    <p>Tutorial de <a href="https://instagram.com/soydiegoosorio">@soydiegoosorio</a>. Esta guía también está en <a href="https://github.com/diegodoc1111/bot-instagram">GitHub</a>.</p>
+    <p><em>Úsalo y compártelo.</em></p>
+  </footer>
+
+</main>
+<script>
+  function copiarTexto(t, boton) {
+    var listo = function () { var o = boton.textContent; boton.textContent = "✅ Copiado"; setTimeout(function () { boton.textContent = o; }, 1800); };
+    var respaldo = function () {
+      var a = document.createElement("textarea"); a.value = t; a.setAttribute("readonly", "");
+      a.style.position = "fixed"; a.style.top = "-1000px"; document.body.appendChild(a); a.select();
+      var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(a);
+      if (ok) { listo(); } else { boton.textContent = "Mantén presionado el texto para copiarlo"; }
+    };
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).then(listo, respaldo); } else { respaldo(); }
+  }
+  document.querySelectorAll("[data-copiar-de]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var el = document.getElementById(b.getAttribute("data-copiar-de"));
+      var t = el.innerText.replace(/^❯\s*/, "");
+      copiarTexto(t, b);
+    });
+  });
+</script>
+</body>
+</html>
